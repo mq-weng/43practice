@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>购物</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      #cart {
+        width: 400px;
+        margin: 20px auto;
+      }
+      #cart li {
+        list-style: none;
+        background-color: aquamarine;
+        margin: 10px 0;
+      }
+      #cart li.activ {
+        background-color: brown;
+      }
+    </style>
+  </head>i
+  <body>
+    <div id="cart" >
+      <h1>商品列表</h1>
+      <ul>
+        <li
+          v-for="item in shop"
+          v-bind:class="{activ:item.isActiv}"
+          @click="change(item)"
+        >
+          <span>{{item.name}}</span>
+          <span>{{item.price}}</span>
+        </li>
+      </ul>
+      <p>总计 {{count}}</p>
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+      var vm = new Vue({
+        el: "#cart",
+        data: {
+            count:0,
+          shop: [
+            {
+              name: "衬衫",
+              price: 1000,
+              isActiv: false,
+            },
+            {
+              name: "裙子",
+              price: 2000,
+              isActiv: false,
+            },
+            {
+              name: "领带",
+              price: 500,
+              isActiv: false,
+            },
+            {
+              name: "手表",
+              price: 30000,
+              isActiv: false,
+            },
+          ],
+        },
+        computed: {
+            
+          },
+        methods: {
+          change(obj) {
+            obj.isActiv = !obj.isActiv;
+            this.count=this.add(this.shop);
+          },
+          add(shop) {
+            var count = 0;
+            for (p in shop)
+              if (this.shop[p].isActiv) {
+                count = count + shop[p].price;
+              }
+              return count
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
